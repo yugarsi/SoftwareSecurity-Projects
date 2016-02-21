@@ -1,0 +1,3 @@
+Yugarsi Ghosh
+1209340388
+normal_web_server runs the python script to start a http_server which return 404 for everything except running a /exec/<command>
