@@ -1,0 +1,41 @@
+There are two ways to break this service.
+Method 1:
+a)use the public key assignment1.pub to encrypt a file containing the python code
+as below :
+
+#!/usr/bin/env python
+import os
+os.system("cat secret.txt")
+
+b) Then I generate the checksum for example.py using the command,
+cksum example.py.
+
+c) Save this checksum to a file called "1.hash". Ensure there is no endline character at the end of the cksum.
+
+d) generate example.py.hash.gpg by encrypting with the public key assignment1.pub
+gpg --output example.py.hash.gpg -r "Assignment 1 CS 279" --encrypt 1.hash
+
+e) Ensure that the system DATE and time is changed to dates "after the public key generation date" and "before the expiry of the public key".
+
+f) Now upload both the  files example.py and example.py.hash.gpg on the server.
+
+The secret text is: cse545IsDAbest!
+
+Method2:
+
+We have from question a signed hash "example.py.hash.gpg" with cksum = 2695300100.
+What we have to do is to modify the file content and append characters in the end such that we obtain a CRC32 - collision
+
+The new file will be
+#!/usr/bin/env python
+import os
+os.system("cat secret.txt")
+# append byes after this to obtain collision
+
+We can obtain collision in CRC32 using the algorithm mentioned in the following URL. 
+http://stackoverflow.com/questions/1515914/crc32-collision
+
+Now again submit the new file and the same signed_hash provided initially from the server.
+
+Now upload both the  files example.py and example.py.hash.gpg on the server.
+The secret text is: cse545IsDAbest!
